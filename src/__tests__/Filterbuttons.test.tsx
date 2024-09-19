@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import FilterButtons from "../components/Filterbuttons";
+import FilterButtons from "@/components/FilterButtons";
 
 describe("Filterbuttons", () => {
   test("renders all filter buttons", () => {
