@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import TaskList from "../components/TaskList";
+import TaskList from "@/components/Tasklist";
 
 const tasks = [
   { id: 1, title: "Task 1", dueDate: "2024-09-10", completed: false },
