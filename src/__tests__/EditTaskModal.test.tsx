@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import EditTaskModal from "../components/EditTaskModal";
+import EditTaskModal from "@/components/EditTaskModal";
 
 const mockTask = {
   id: 1,
