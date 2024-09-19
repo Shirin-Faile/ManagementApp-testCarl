@@ -2,3 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+body {
+  @apply bg-gray-100 text-gray-800 font-sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold text-gray-900;
+}
+
+p {
+  @apply mb-4;
+}
+
+button {
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+button:focus {
+  @apply ring-green-500;
+}
+
+input[type="text"],
+input[type="date"] {
+  @apply border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50;
+}
+
+input[type="checkbox"] {
+  @apply form-checkbox text-indigo-600;
+}
+
+a {
+  @apply text-teal-600 hover:text-teal-800;
+}
+
+a:focus {
+  @apply ring-teal-500;
+}
+
+
+.card {
+  @apply bg-white p-6 border border-gray-200 rounded-lg shadow-lg;
+}
+
+.task-item {
+  @apply bg-white p-4 border border-gray-200 rounded-lg shadow-md flex items-center justify-between mb-2;
+  transition: none;
+}
+
+
+.filter-button {
+  @apply px-4 py-2 rounded-lg font-medium text-white transition-colors;
+}
+
+.filter-button-all {
+  @apply bg-blue-500 hover:bg-blue-600;
+}
+
+.filter-button-completed {
+  @apply bg-green-500 hover:bg-green-600;
+}
+
+.filter-button-pending {
+  @apply bg-yellow-500 hover:bg-yellow-600;
+}
+
+
+
+
+

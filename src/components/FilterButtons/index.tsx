@@ -8,26 +8,26 @@ interface FilterButtonsProps {
 const FilterButtons = ({ currentFilter, onFilterChange }: FilterButtonsProps) => {
   const getButtonClass = (filter: string) => {
     return currentFilter === filter
-      ? "bg-blue-500 text-white"
-      : "bg-gray-200";
+      ? "filter-button filter-button-active"
+      : "filter-button";
   };
 
   return (
-    <div>
+    <div className="flex space-x-2 mb-4">
       <button
-        className={getButtonClass("all")}
+        className={getButtonClass("all") + " filter-button-all"}
         onClick={() => onFilterChange("all")}
       >
         All
       </button>
       <button
-        className={getButtonClass("completed")}
+        className={getButtonClass("completed") + " filter-button-completed"}
         onClick={() => onFilterChange("completed")}
       >
         Completed
       </button>
       <button
-        className={getButtonClass("pending")}
+        className={getButtonClass("pending") + " filter-button-pending"}
         onClick={() => onFilterChange("pending")}
       >
         Pending
@@ -37,3 +37,5 @@ const FilterButtons = ({ currentFilter, onFilterChange }: FilterButtonsProps) =>
 };
 
 export default FilterButtons;
+
+

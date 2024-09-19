@@ -17,11 +17,11 @@ interface TaskListProps {
 
 const TaskList = ({ tasks, onToggleComplete, onDelete, onEdit }: TaskListProps) => {
   if (tasks.length === 0) {
-    return <p>No tasks available.</p>;
+    return <p className="text-center text-gray-500">No tasks available.</p>;
   }
 
   return (
-    <div>
+    <div className="space-y-4">
       {tasks.map(task => (
         <TaskItem
           key={task.id}
@@ -36,3 +36,4 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onEdit }: TaskListProps) 
 };
 
 export default TaskList;
+
