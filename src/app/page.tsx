@@ -1,55 +1,112 @@
+"use client";
 import { useState } from "react";
 
+interface Task {
+  id: number;
+  title: string;
+  dueDate: string;
+  completed: boolean;
+}
+
 export default function Home() {
-  const [tasks, setTasks] = useState<{ title: string; dueDate: string }[]>([]);
-  const [taskTitle, setTaskTitle] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [nextId, setNextId] = useState(1);
+  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [newTaskDueDate, setNewTaskDueDate] = useState("");
 
   const addTask = () => {
-    if (taskTitle && dueDate) {
-      setTasks((prevTasks) => [...prevTasks, { title: taskTitle, dueDate }]);
-      setTaskTitle("");
-      setDueDate("");
+    if (newTaskTitle && newTaskDueDate) {
+      setTasks([
+        ...tasks,
+        {
+          id: nextId,
+          title: newTaskTitle,
+          dueDate: newTaskDueDate,
+          completed: false,
+        },
+      ]);
+      setNextId(nextId + 1);
+      setNewTaskTitle("");
+      setNewTaskDueDate("");
     }
   };
 
+  const toggleComplete = (id: number) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
+  const deleteTask = (id: number) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  const editTask = (id: number, newTitle: string, newDueDate: string) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, title: newTitle, dueDate: newDueDate } : task
+      )
+    );
+  };
+
   return (
-    <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <h1 className="text-2xl font-bold">Task Manager</h1>
-      <div className="flex flex-col gap-4">
-        <div>
-          <label htmlFor="taskTitle" className="block mb-2">Task Title</label>
+    <div>
+      <h1>Task Management</h1>
+
+      <div>
+        <label>
+          Task Title:
           <input
-            id="taskTitle"
-            value={taskTitle}
-            onChange={(e) => setTaskTitle(e.target.value)}
-            aria-label="task title"
-            className="border p-2"
+            type="text"
+            placeholder="Task title"
+            value={newTaskTitle}
+            onChange={(e) => setNewTaskTitle(e.target.value)}
           />
-        </div>
-        <div>
-          <label htmlFor="dueDate" className="block mb-2">Due Date</label>
+        </label>
+        <label>
+          Due Date:
           <input
-            id="dueDate"
             type="date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            aria-label="due date"
-            className="border p-2"
+            value={newTaskDueDate}
+            onChange={(e) => setNewTaskDueDate(e.target.value)}
           />
-        </div>
-        <button onClick={addTask} className="bg-blue-500 text-white px-4 py-2">
-          Add Task
-        </button>
+        </label>
+        <button onClick={addTask}>Add Task</button>
       </div>
 
-      <ul className="mt-8">
-        {tasks.map((task, index) => (
-          <li key={index} className="border-b py-2">
-            <span>{task.title}</span> - <span>{task.dueDate}</span>
-          </li>
-        ))}
-      </ul>
+      {tasks.length === 0 ? (
+        <p>No tasks available.</p>
+      ) : (
+        <ul>
+          {tasks.map((task) => (
+            <li key={task.id}>
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => toggleComplete(task.id)}
+              />
+              <span className={task.completed ? "line-through" : ""}>
+                {task.title} - {task.dueDate}
+              </span>
+              <button onClick={() => deleteTask(task.id)}>Delete</button>
+              <button
+                onClick={() =>
+                  editTask(
+                    task.id,
+                    prompt("Edit task title", task.title) || task.title,
+                    prompt("Edit due date", task.dueDate) || task.dueDate
+                  )
+                }
+              >
+                Edit
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
+
